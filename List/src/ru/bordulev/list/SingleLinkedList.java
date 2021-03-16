@@ -122,7 +122,7 @@ public class SingleLinkedList<T> {
         previous.next = temp;
     }
 
-    // 7. ------ remoteByKey
+    // 7. ------ Remote By Key ------
     // TODO вероятно зесь получается NPE, надо обработать выход за пределы списка
     public boolean remoteByKey(T key) {
         ListItem<T> previous = head;
@@ -148,14 +148,14 @@ public class SingleLinkedList<T> {
         return true;
     }
 
-    // --- 8 --- Remote First Element
+    // 8. ------ Remote First Element ------
     public T remoteFirst() {
         head = head.next;
 
         return head.data;
     }
 
-    // -- 9 -- Reverse
+    // 9. ------ Reverse ------
     // TODO просто менять ссылки местами
 /*
     public void reverse() {
