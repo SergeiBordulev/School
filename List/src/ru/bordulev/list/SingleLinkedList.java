@@ -13,6 +13,16 @@ public class SingleLinkedList<T> {
         return head == null;
     }
 
+    public void print() {
+        ListItem temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + ", ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
     // 1. ------ Size ------
     public int getListSize() {
         return count;
@@ -96,7 +106,7 @@ public class SingleLinkedList<T> {
         temp.next = head;
 
         head = temp;
-        count++; // Надо понять что он вообще отражает, может он вообще не нужен
+        count++;
     }
 
     // 6. ------ addByIndex ------
@@ -172,7 +182,6 @@ public class SingleLinkedList<T> {
 
 
     // -- 10 -- Copy
-
     public void copy() {
         SingleLinkedList listNew = new SingleLinkedList();
         ListItem current = head;
@@ -191,15 +200,5 @@ public class SingleLinkedList<T> {
 
         head = temp;
         count++;*/
-    }
-
-    public void print() {
-        ListItem temp = head;
-
-        while (temp != null) {
-            System.out.print(temp.data + ", ");
-            temp = temp.next;
-        }
-        System.out.println();
     }
 }
