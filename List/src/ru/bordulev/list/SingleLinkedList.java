@@ -18,14 +18,14 @@ public class SingleLinkedList<T> {
         return count;
     }
 
-    // 2. ------ getFirstElement ------
+    // 2. ------ Get First Element ------
     public T getFirstElement() {
         ListItem<T> temp = head;
 
         return temp.data;
     }
 
-    // 3. ------ GetValueByIndex ------
+    // 3. ------ Get Value By Index ------
     public T getValueByIndex(int index) {
         ListItem<T> previous = head;
         ListItem<T> current = head;
@@ -45,7 +45,7 @@ public class SingleLinkedList<T> {
         return current.data;
     }
 
-    // 3. ------ Change ------
+    // 3. ------ Change Value By Index ------
     public T changeValueByIndex(int index, T data) {
         ListItem<T> previous = head;
         ListItem<T> current = head;
@@ -67,7 +67,7 @@ public class SingleLinkedList<T> {
         return result; // TODO надо чтобы выдавала старое значение
     }
 
-    // 4. ------
+    // 4. ------ Remote ------
     public T remote(int index) {
         ListItem<T> previous = head;
         ListItem<T> current = head;
@@ -90,7 +90,7 @@ public class SingleLinkedList<T> {
         return current.data;
     }
 
-    // 5 ------ add ------
+    // 5 ------ Add ------
     public void add(T data) {
         ListItem<T> temp = new ListItem<>(data);
         temp.next = head;
@@ -178,7 +178,7 @@ public class SingleLinkedList<T> {
         ListItem current = head;
         ListItem previous = head;
 
-        while(head != null) {
+        while (head != null) {
             listNew.head = current;
             //listNew.data = current.data;
 
