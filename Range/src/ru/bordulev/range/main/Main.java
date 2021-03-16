@@ -12,20 +12,20 @@ public class Main {
             System.out.println("The Point (" + i + ") belongs to the line: " + range.isInside(i));
         }
 
-        Range range1 = new Range(2.3, 7.6);
+        Range range1 = new Range(2.3, 5.6);
         Range range2 = new Range(4.5, 6.7);
 
-        System.out.println("Intersection range: " + range1.getIntersection(range2).toString());
+        System.out.println("Intersection range: " + range1.getIntersection(range2));
         System.out.printf("Distance intersection: %.2f%n", range1.getIntersection(range2).getLength());
 
-        Range[] arrayUnion = range1.getUnion(range2);
-        for (int i = 0; i < arrayUnion.length; i++) {
-            System.out.println(i + 1 + " United range: " + arrayUnion[i].toString());
+        Range[] union = range1.getUnion(range2);
+        for (int i = 0; i < union.length; i++) {
+            System.out.println(i + 1 + " United range: " + union[i]);
         }
 
-        Range[] array = range1.getDifference(range2);
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(i + 1 + " Difference range: " + array[i].toString());
+        Range[] difference = range1.getDifference(range2);
+        for (int i = 0; i < difference.length; i++) {
+            System.out.println(i + 1 + " Difference range: " + difference[i]);
         }
     }
 }

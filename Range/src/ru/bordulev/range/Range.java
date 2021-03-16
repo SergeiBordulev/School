@@ -29,41 +29,38 @@ public class Range {
         return to - from;
     }
 
+    @Override
     public String toString() {
-        return from + "; " + to;
+        return "(" + from + "; " + to + ")";
     }
 
     public boolean isInside(double number) {
         return number >= from && number <= to;
     }
 
-    public Range getIntersection(Range range2) {
-        if (from < range2.from && range2.from < to) {
-            return new Range(range2.from, to);
+    public Range getIntersection(Range range) {
+        if (range.from > to) {
+            return null;
         }
 
-        return null;
+        return new Range(Math.max(from, range.from), Math.min(range.to, to));
     }
 
-    public Range[] getUnion(Range range2) {
-        if (from < range2.from && range2.from < to) {
-            if (range2.to < to) {
-                return new Range[]{new Range(from, to)};
-            }
-
-            return new Range[]{new Range(from, range2.to)};
+    public Range[] getUnion(Range range) {
+        if (range.from < to) {
+            return new Range[]{new Range(Math.min(from, range.from), Math.max(range.to, to))};
         }
 
-        return new Range[]{new Range(from, to), new Range(range2.from, range2.to)};
+        return new Range[]{new Range(from, to), new Range(range.from, range.to)};
     }
 
-    public Range[] getDifference(Range range2) {
-        if (to == range2.from) {
-            return new Range[]{new Range(from, to), new Range(range2.from, range2.to)};
+    public Range[] getDifference(Range range) {
+        if (from < range.from && range.to < to) {
+            return new Range[]{new Range(from, range.from), new Range(range.to, to)};
         }
 
-        if (from < range2.from && range2.from < to) {
-            return new Range[]{new Range(from, range2.from)};
+        if (range.from < to) {
+            return new Range[]{new Range(from, range.from)};
         }
 
         return new Range[]{};
