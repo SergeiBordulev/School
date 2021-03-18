@@ -1,54 +1,65 @@
 package ru.bordulev.shapes;
 
 public class Circle implements Shape {
-    private double width;
-    private double height;
     private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
 
     public void setRadius(double radius) {
         this.radius = radius;
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
+    @Override
     public double getWidth() {
         return radius * 2;
     }
 
+    @Override
     public double getHeight() {
         return radius * 2;
     }
 
+    @Override
     public double getArea() {
-        return Math.PI * Math.pow(radius, 2);
+        return Math.PI * radius * radius;
     }
 
+    @Override
     public double getPerimeter() {
         return 2 * Math.PI * radius;
     }
 
     @Override
-    public int compareTo(Shape o) {
-        return (int) (this.getArea() * 100) - (int) (o.getArea() * 100);
-    }
-
-    @Override
     public String toString() {
-        return "area: " + getArea() + "; perimeter: " + getPerimeter();
+        return "Circle with radius: " + radius;
     }
 
     @Override
     public int hashCode() {
         int prime = 7;
         int hash = 1;
-        hash = prime * hash + (int) height;
-        hash = prime * hash + (int) width;
+        hash = prime * hash + (int) radius;
+        hash = prime * hash + (int) radius;
         return hash;
     }
 
     @Override
-    public boolean equals(Shape shape) {
-        if (this == shape) return true;
-        if (shape == null) return false;
-        if (getClass() != shape.getClass()) return false;
-        return radius == (shape.getHeight() / 2);
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Circle circle = (Circle) obj;
+        return radius == circle.radius;
     }
 }

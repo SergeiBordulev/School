@@ -4,6 +4,11 @@ public class Rectangle implements Shape {
     private double width;
     private double height;
 
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
+    }
+
     public void setHeight(double height) {
         this.height = height;
     }
@@ -33,13 +38,8 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public int compareTo(Shape o) {
-        return (int) (this.getArea() * 100) - (int) (o.getArea() * 100);
-    }
-
-    @Override
     public String toString() {
-        return "area: " + getArea() + "; perimeter: " + getPerimeter();
+        return "Rectangle with sides: " + height + " by " + width;
     }
 
     @Override
@@ -52,10 +52,16 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public boolean equals(Shape shape) {
-        if (this == shape) return true;
-        if (shape == null) return false;
-        if (getClass() != shape.getClass()) return false;
-        return height == shape.getHeight() && width == shape.getWidth();
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Rectangle rectangle = (Rectangle) obj;
+        return height == rectangle.height && width == rectangle.width;
     }
 }

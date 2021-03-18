@@ -1,6 +1,6 @@
 package ru.bordulev.shapes;
 
-public interface Shape extends Comparable<Shape> {
+public interface Shape {
     double getWidth();
 
     double getHeight();
@@ -8,12 +8,6 @@ public interface Shape extends Comparable<Shape> {
     double getArea();
 
     double getPerimeter();
-
-    String toString();
-
-    int hashCode();
-
-    boolean equals(Shape shape);
 }
 
 

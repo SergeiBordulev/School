@@ -7,10 +7,17 @@ public class Triangle implements Shape {
     private double y1;
     private double y2;
     private double y3;
-    private double width = getMax(x1, x2, x3) - getMin(x1, x2, x3);
-    private double height = getMax(y1, y2, y3) - getMin(y1, y2, y3);
 
-    private double getMax(double b1, double b2, double b3) {
+    public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
+        this.x1 = x1;
+        this.x2 = x2;
+        this.x3 = x3;
+        this.y1 = y1;
+        this.y2 = y2;
+        this.y3 = y3;
+    }
+
+    private static double getMax(double b1, double b2, double b3) {
         double max = b1;
 
         if (max < b2) {
@@ -24,7 +31,7 @@ public class Triangle implements Shape {
         return max;
     }
 
-    private double getMin(double a1, double a2, double a3) {
+    private static double getMin(double a1, double a2, double a3) {
         double min = a1;
 
         if (min > a2) {
@@ -38,59 +45,106 @@ public class Triangle implements Shape {
         return min;
     }
 
-    public void setLength(double x1, double y1, double x2, double y2, double x3, double y3) {
+    public void setX1(double x1) {
         this.x1 = x1;
+    }
+
+    public void setX2(double x2) {
         this.x2 = x2;
+    }
+
+    public void setX3(double x3) {
         this.x3 = x3;
+    }
+
+    public void setY1(double y1) {
         this.y1 = y1;
+    }
+
+    public void setY2(double y2) {
         this.y2 = y2;
+    }
+
+    public void setY3(double y3) {
         this.y3 = y3;
     }
 
+    public double getX1() {
+        return x1;
+    }
+
+    public double getX2() {
+        return x2;
+    }
+
+    public double getX3() {
+        return x3;
+    }
+
+    public double getY1() {
+        return y1;
+    }
+
+    public double getY2() {
+        return y2;
+    }
+
+    public double getY3() {
+        return y3;
+    }
+
+    @Override
     public double getWidth() {
-        return width;
+        return getMax(x1, x2, x3) - getMin(x1, x2, x3);
     }
 
+    @Override
     public double getHeight() {
-        return height;
+        return getMax(y1, y2, y3) - getMin(y1, y2, y3);
     }
 
+    private static double getLength(double a1, double b1, double a2, double b2) {
+        return Math.sqrt((a2 - a1) * (a2 - a1) + (b2 - b1) * (b2 - b1));
+    }
+
+    @Override
     public double getArea() {
         return 0.5 * Math.abs((x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3));
     }
 
-    public double getPerimeter() {
-        double abVector = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-        double acVector = Math.sqrt(Math.pow(x3 - x1, 2) + Math.pow(y3 - y1, 2));
-        double bcVector = Math.sqrt(Math.pow(x3 - x2, 2) + Math.pow(y3 - y2, 2));
-
-        return abVector + acVector + bcVector;
-    }
-
     @Override
-    public int compareTo(Shape o) {
-        return (int) (this.getArea() * 100) - (int) (o.getArea() * 100);
+    public double getPerimeter() {
+        double abLength = getLength(x1, y1, x2, y2);
+        double acLength = getLength(x1, y1, x3, y3);
+        double bcLength = getLength(x2, y2, x3, y3);
+
+        return abLength + acLength + bcLength;
     }
 
     @Override
     public String toString() {
-        return "area: " + getArea() + "; perimeter: " + getPerimeter();
+        return "Triangle with coordinates X1: " + x1 + "; Y1: " + y1 + "; Y2: " + x2 + "; Y2: " + y2 + "; X3: " + x3 + "; Y3: " + y3;
     }
 
     @Override
     public int hashCode() {
         int prime = 7;
         int hash = 1;
-        hash = prime * hash + (int) height;
-        hash = prime * hash + (int) width;
+        hash = prime * hash + (int) (x1 + y1 + x2 + y2 + x3 + y3);
         return hash;
     }
 
     @Override
-    public boolean equals(Shape shape) {
-        if (this == shape) return true;
-        if (shape == null) return false;
-        if (getClass() != shape.getClass()) return false;
-        return height == shape.getHeight() && width == shape.getWidth();
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Triangle triangle = (Triangle) obj;
+        return x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 && y2 == triangle.y2 && x3 == triangle.x3 && y3 == triangle.y3;
     }
 }
