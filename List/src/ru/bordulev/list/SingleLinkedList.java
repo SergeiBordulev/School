@@ -3,7 +3,7 @@ package ru.bordulev.list;
 public class SingleLinkedList<T> {
     private ListItem<T> head;
     private ListItem<T> tail;
-    int count;
+    private int count;
 
     public SingleLinkedList() {
         head = null;
@@ -13,31 +13,20 @@ public class SingleLinkedList<T> {
         return head == null;
     }
 
-    public void print() {
-        ListItem temp = head;
-
-        while (temp != null) {
-            System.out.print(temp.data + ", ");
-            temp = temp.next;
-        }
-        System.out.println();
-    }
-
-    // 1. ------ Size ------
+    // --- 1 ---
     public int getListSize() {
         return count;
     }
 
-    // 2. ------ Get First Element ------
+    // --- 2 ---
     public T getFirstElement() {
         ListItem<T> temp = head;
 
         return temp.data;
     }
 
-    // 3. ------ Get Value By Index ------
+    // --- 3 --- GetValueByIndex
     public T getValueByIndex(int index) {
-        ListItem<T> previous = head;
         ListItem<T> current = head;
         int count = 0;
 
@@ -45,7 +34,6 @@ public class SingleLinkedList<T> {
             if (isEmpty()) {
                 System.out.println("List is empty.");
             } else {
-                previous = current;
                 current = current.next;
             }
 
@@ -55,9 +43,8 @@ public class SingleLinkedList<T> {
         return current.data;
     }
 
-    // 3. ------ Change Value By Index ------
+    // --- 3 --- Change
     public T changeValueByIndex(int index, T data) {
-        ListItem<T> previous = head;
         ListItem<T> current = head;
         int count = 0;
 
@@ -65,7 +52,6 @@ public class SingleLinkedList<T> {
             if (isEmpty()) {
                 System.out.println("List is empty.");
             } else {
-                previous = current;
                 current = current.next;
             }
 
@@ -74,11 +60,11 @@ public class SingleLinkedList<T> {
 
         T result = current.data;
         current.data = data;
-        return result; // TODO надо чтобы выдавала старое значение
+        return result;
     }
 
-    // 4. ------ Remote ------
-    public T remote(int index) {
+    // --- 4 ---
+    public T removeByIndex(int index) {
         ListItem<T> previous = head;
         ListItem<T> current = head;
         int count = 0;
@@ -96,11 +82,10 @@ public class SingleLinkedList<T> {
         }
 
         previous.next = current.next;
-
         return current.data;
     }
 
-    // 5 ------ Add ------
+    // --- 5 ---
     public void add(T data) {
         ListItem<T> temp = new ListItem<>(data);
         temp.next = head;
@@ -109,12 +94,11 @@ public class SingleLinkedList<T> {
         count++;
     }
 
-    // 6. ------ addByIndex ------
+    // --- 6 ---
     public void addByIndex(int index, T data) {
         ListItem<T> temp = new ListItem<>(data);
-
-        ListItem previous = head;
-        ListItem current = head;
+        ListItem<T> previous = head;
+        ListItem<T> current = head;
         int count = 0;
 
         while (count != index) {
@@ -128,77 +112,98 @@ public class SingleLinkedList<T> {
             count++;
         }
 
-        temp.next = current;
         previous.next = temp;
+        temp.next = current;
     }
 
-    // 7. ------ Remote By Key ------
-    // TODO вероятно зесь получается NPE, надо обработать выход за пределы списка
-    public boolean remoteByKey(T key) {
+    // --- 7 ---
+    public boolean removeByKey(T key) {
         ListItem<T> previous = head;
         ListItem<T> current = head;
 
-        while (current.data != key) {
-            if (isEmpty()) {
-                return false;
-            } else {
+        if (isEmpty()) {
+            return false;
+        } else {
+            while (current != null) {
+                if (current.data == key) {
+                    count--;
+
+                    if (current == head) {
+                        head = head.next;
+                    } else {
+                        previous.next = current.next;
+                    }
+
+                    return true;
+                }
+
                 previous = current;
                 current = current.next;
             }
-
-            if (current == head) {
-                head = head.next;
-            } else {
-                previous.next = current.next;
-            }
-
-            count++;
         }
 
-        return true;
+        return false;
     }
 
-    // 8. ------ Remote First Element ------
-    public T remoteFirst() {
+    // --- 8 --- Remote First Element
+    public T removeFirstItem() {
         head = head.next;
+        count--;
 
         return head.data;
     }
 
-    // 9. ------ Reverse ------
-    // TODO просто менять ссылки местами
-/*
+    // -- 9 -- Reverse
     public void reverse() {
-        int count;
+        ListItem<T> previous = head;
+        ListItem<T> current = head.next;
+        head.next = null;
+        ListItem<T> nextElement = current.next;
 
-        for() {
-            temp.next = head;
-
-            head = temp;
-            count++;
+        while (nextElement.next != null) {
+            current.next = previous;
+            previous = current;
+            current = nextElement;
+            nextElement = current.next;
         }
-    }
-*/
 
+        current.next = previous;
+        head = nextElement;
+        nextElement.next = current;
+    }
 
     // -- 10 -- Copy
-    public void copy() {
-        SingleLinkedList listNew = new SingleLinkedList();
-        ListItem current = head;
-        ListItem previous = head;
+    private void addToEnd(T data) {
+        ListItem<T> newListItem = new ListItem<>(data);
+        newListItem.data = data;
 
-        while (head != null) {
-            listNew.head = current;
-            //listNew.data = current.data;
+        if (isEmpty()) {
+            head = newListItem;
+            tail = newListItem;
+        } else {
+            tail.next = newListItem;
+            tail = newListItem;
+        }
+    }
 
-            previous = current;
+    public void copy(SingleLinkedList<T> destination) {
+        ListItem<T> current = head;
+
+        while (current != null) {
+            T temp = current.data;
+            destination.addToEnd(temp);
             current = current.next;
         }
+    }
 
-        /*ListItem temp = new ListItem(data);
-        temp.next = head;
+    public void print() {
+        ListItem temp = head;
 
-        head = temp;
-        count++;*/
+        while (temp != null) {
+            System.out.print(temp.data + ", ");
+            temp = temp.next;
+        }
+
+        System.out.println();
     }
 }

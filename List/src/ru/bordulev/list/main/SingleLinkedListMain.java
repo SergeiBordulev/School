@@ -2,7 +2,7 @@ package ru.bordulev.list.main;
 
 import ru.bordulev.list.SingleLinkedList;
 
-public class SingleLinkedList_Main {
+public class SingleLinkedListMain {
     public static void main(String[] args) {
         SingleLinkedList<Integer> list = new SingleLinkedList<>();
 
@@ -22,19 +22,18 @@ public class SingleLinkedList_Main {
         System.out.println("2. First element: " + list.getFirstElement());
 
         // 3. Получение/Изменение значения п указанногому индексу. Изменение значения по индексу пусть выдает старое значение.
-        list.print();
         int index = 2;
         System.out.println("3. Index value by (" + index + ") : " + list.getValueByIndex(index));
         System.out.println("Возвращаемое (старое значение) значение: " + list.changeValueByIndex(2, 7));
-        System.out.print("Список после изменениея: ");
+        System.out.print("List after change: ");
         list.print();
 
         // 4. Удаление элемента по индексу, пусть выдает значение элемента
         System.out.println("4. Удаление элемента по индексу, пусть выдает значение элемента");
-        System.out.print("Before remote: ");
+        System.out.print("Before remove: ");
         list.print();
-        System.out.println(list.remote(1));
-        System.out.print("After remote: ");
+        System.out.println(list.removeByIndex(1));
+        System.out.print("After remove: ");
         list.print();
 
         // 5. Вставка элемента в начало
@@ -53,67 +52,36 @@ public class SingleLinkedList_Main {
         System.out.print("After insert: ");
         list.print();
 
-        // 7. Удаление узла по значению, пусть выдает true, если элемент был удален // TODO Доработать чтобы выдавало false
+        // 7. Удаление узла по значению, пусть выдает true, если элемент был удален
         System.out.println("7. Удаление узла по значению, пусть выдает true, если элемент был удален");
-        System.out.print("Before remote: ");
+        System.out.print("Before remove: ");
         list.print();
-        System.out.println("Удаление по ключу: " + list.remoteByKey(7));
-        System.out.print("After remote: ");
+        System.out.println("Remove by key: " + list.removeByKey(5));
+        System.out.print("After remove: ");
         list.print();
 
         // 8. Удаление первого элемента, пусть выдает значение элемента
         System.out.println("8. Удаление первого элемента, пусть выдает значение элемента");
-        System.out.print("Before remote: ");
+        System.out.print("Before remove: ");
+        list.print();
+        System.out.println("Remote first item: " + list.removeFirstItem());
+        System.out.print("After remove: ");
         list.print();
 
-        System.out.println("Удаление первого элемента: " + list.remoteFirst());
-
-        System.out.print("After remote: ");
+        // 9. Разворот списка за линейное время
+        System.out.print("9. Before reverse: ");
+        list.print();
+        list.reverse();
+        System.out.print("9. After reverse: ");
         list.print();
 
-        // 9. Разворот списка за ленейное время
-        // TODO просто менять ссылки местами
-        System.out.print("Before reverse: ");
+        // 10. Copy
+        SingleLinkedList<Integer> newList = new SingleLinkedList<>();
+
+        System.out.print("10. Before copy: ");
         list.print();
-        // list.reverse();
-        System.out.print("After reverse: ");
-        list.print();
-
-        // 10. Копирование списка
-        SingleLinkedList<Integer> listNew = new SingleLinkedList<>();
-
-        System.out.print("Before copy: ");
-        list.print();
-        list.copy();
-        System.out.print("After copy: ");
-        listNew.print();
-
-        // ------ Print list
-        // System.out.println("Print list: " + list.toString());
-
-        /*
-        // ------ Add -----
-       // ListItem<Integer> head;
-        ListItem<Integer> p = new ListItem<>(3, head);
-        head = p;
-
-        // ------ Delete ------
-        // head = head.getNext();
-
-        // ------ Print ------
-        for (ListItem<Integer> p = head; p != null; p = p.getNext()) {
-            System.out.println(p.getData());
-        }*/
-
-
-        // ------ Generics ------
-       /* List<Integer> list = new ArrayList<>();
-        list.add(5);
-        Integer x = list.get(0);
-        System.out.println("x: " + x);
-        System.out.println("Print list:");
-        System.out.println(list);*/
-
-
+        list.copy(newList);
+        System.out.print("10. After copy, new list: ");
+        newList.print();
     }
 }
