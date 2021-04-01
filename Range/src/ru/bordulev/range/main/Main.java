@@ -16,7 +16,7 @@ public class Main {
         Range range2 = new Range(4.5, 6.7);
 
         System.out.println("Intersection range: " + range1.getIntersection(range2));
-        System.out.printf("Distance intersection: %.2f%n", range1.getIntersection(range2).getLength());
+        System.out.printf("Length intersection: %.2f%n", range1.getIntersection(range2).getLength());
 
         Range[] union = range1.getUnion(range2);
         for (int i = 0; i < union.length; i++) {
